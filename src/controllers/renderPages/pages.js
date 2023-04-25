@@ -64,14 +64,14 @@ function changePassPage(req, res) {
     if (!userId && !logged) {
         res.redirect("/");
     }
-    if (userId > 0 && logged === true && IIfa === 1 && IIfaAuth === true) {
+    if (userId > 0 && IIfa === 1 && IIfaAuth === true) {
         res.sendFile(path.join(__dirname, "../../public", "changePass", "changePass.html"));
     }
-    else if (userId > 0 && logged === true && IIfa === 1 && IIfaAuth === false) {
+    else if (userId > 0 && IIfa === 1 && IIfaAuth === false) {
         res.redirect("/IIfa");
     }
 
-    if (userId > 0 && logged === true && IIfa === 0 && IIfaAuth === false) {
+    if (userId > 0 && IIfa === 0 && IIfaAuth === false) {
         res.sendFile(path.join(__dirname, "../../public", "changePass", "changePass.html"));
     }
 
