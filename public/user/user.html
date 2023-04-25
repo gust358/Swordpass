@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../topbarr.css">
+    <link rel="stylesheet" href="./user.css">
+    <title>User</title>
+</head>
+
+<body>
+    <div id="topbarr">
+        <div id="logo" class="top_it">
+            <p id="swordpass">SWORDPASS</p>
+            <p id="manager">MANAGER</p>
+        </div>
+
+        <div id="addPassword" class="top_it">
+            <button id="addBtnContainer">+</button>
+        </div>
+        <div id="menu" class="top_it">
+            <div id="user">
+                <button id="username" class="options"></button>
+                <div id="menu_op">
+                    <button id="changePassword" class="options shadow">Change Password</button>
+                    <br>
+                    <button id="logout" class="options shadow">Logout</button>
+                    <br>
+                    <button id="IIfa" class="options shadow">Active Two Factor Auth</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addContainer" class="shadowContainer">
+        <div id="box">
+            <input id="addService" class="box_its" type="text" required name="Service" placeholder="Service">
+            <div id="message" class="box_its message"></div>
+            <button id="add_btn" class="box_its box_btn">Submit</button>
+        </div>
+    </div>
+
+    <div id="delContainer" class="shadowContainer">
+        <div id="box">
+            <p id="deleteName" class="box_its"></p>
+            <input id="confirmPassword" class="box_its" type="password" required name="password" placeholder="Password">
+            <p id="confirmMessage" class="box_its message"></p>
+            <button id="confirmBtn" class="box_its box_btn">Confirm</button>
+        </div>
+    </div>
+
+    <div id="container"></div>
+
+    <script src="./user.js"></script>
+</body>
+
+</html>

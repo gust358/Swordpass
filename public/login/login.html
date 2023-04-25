@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="./login/login.css">
+</head>
+
+<body>
+    <div id="container">
+        <div class="top">
+            <div id="logo">
+                <p id="swordpass">SWORDPASS</p>
+                <p id="manager">MANAGER</p>
+            </div>
+            <div id="items">
+                <input class="items" id="username" type="text" required placeholder="Username" autofocus>
+                <input class="items" id="password" type="password" required placeholder="Password">
+                <div id="warning"></div>
+            </div>
+        </div>
+        <div id="btns" class="bottom">
+            <button class="btns" id="signin_btn">Sign in</button>
+            <button class="btns" id="register_btn">Create Account</button>
+        </div>
+    </div>
+    <script src="./login/login.js"></script>
+</body>
+
+</html>

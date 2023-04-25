@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../topbarr.css">
+    <link rel="stylesheet" href="./changePass/changePass.css">
+    <title>Change Password</title>
+</head>
+
+<body>
+    <div id="topbarr">
+        <div id="logo" class="top_it">
+            <p id="swordpass">SWORDPASS</p>
+            <p id="manager">MANAGER</p>
+        </div>
+        <div></div>
+        <div id="menu" class="top_it">
+            <div id="user">
+                <button id="username" class="options"></button>
+                <div id="menu_op">
+                    <button id="home" class="options shadow">Home</button>
+                    <br>
+                    <button id="logout" class="options shadow">Logout</button>
+                    <br>
+                    <button id="IIfa" class="options shadow">Active Two Factor Auth</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="container">
+        <div id="box">
+            <p class="text">Change Password</p>
+            <input id="oldPassword" class="items" type="password" required name="password" placeholder="Old Password">
+            <input id="newPassword" class="items" type="password" required name="newPassword"
+                placeholder="New Password">
+            <input id="confirmNewPassword" class="items" type="password" required name="ConfirmNewPassword"
+                placeholder="Confirm New Password">
+            <p id="w2"></p>
+
+            <button id="changeBtn" class="btns">Submit</button>
+        </div>
+    </div>
+
+    <script src="./changePass/changePass.js"></script>
+</body>
+
+</html>
