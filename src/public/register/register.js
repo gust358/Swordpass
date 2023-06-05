@@ -17,7 +17,7 @@ document.getElementById("register_btn").addEventListener("click", async () => {
             document.getElementById(data.type).value = "";
             document.getElementById(data.type).placeholder = data.message
         } else {
-            window.location.href = "/"
+            window.location.href = "/login"
         }
     })
 

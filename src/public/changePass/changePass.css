@@ -7,14 +7,16 @@
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
+    background-color: rgb(29, 27, 27);
 }
 
 #container {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 80vh;
+
 }
 
 @media screen and (min-height: 1000px) {
@@ -31,11 +33,12 @@ body {
     justify-content: center;
     align-items: center;
     width: 20vw;
-    height: 70vh;
+    height: 60vh;
     min-width: 300px;
     min-height: 400px;
     border: 1px solid rgba(128, 128, 128, 0.432);
     border-radius: 10px;
+    background-color: #ffffff;
 }
 
 
@@ -52,8 +55,9 @@ body {
 
 .btns {
     font-family: 'Inconsolata', monospace;
-    width: 9vw;
-    height: 50px;
+    font-size: 1rem;
+    width: 6rem;
+    height: 4rem;
     min-width: 125px;
     min-height: 40px;
     border: none;

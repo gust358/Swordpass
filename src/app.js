@@ -6,7 +6,7 @@ const app = express();
 
 const { login } = require("./controllers/login/login.js");
 const { register } = require("./controllers/register/register.js");
-const { changePassPage, IIfaPage, userPage, registerPage, successPage, loginPage } = require("./controllers/renderPages/pages.js");
+const { homePage, changePassPage, IIfaPage, userPage, registerPage, loginPage } = require("./controllers/renderPages/pages.js");
 const { sendData, addPassword, removePassword, changePassword, sendUsername } = require("./controllers/user/user.js");
 const { verifyToken } = require("./controllers/token/token.js");
 const { logout } = require("./controllers/logout/logout.js");
@@ -27,7 +27,8 @@ app.post("/IIfa", verifyToken, IIfaAuth);
 app.post("/userData", verifyToken, sendData);
 app.post("/username", verifyToken, sendUsername);
 
-app.get("/", verifyToken, loginPage);
+app.get("/", verifyToken, homePage);
+app.get("/login", verifyToken, loginPage);
 app.get("/register", verifyToken, registerPage);
 app.get("/user", verifyToken, userPage);
 app.get("/IIfa", verifyToken, IIfaPage);

@@ -16,7 +16,7 @@ function generatePassword() {
     const saltRound = Math.floor(Math.random() * 10);
     const salt = bcrypt.genSaltSync(saltRound);
     const hash = bcrypt.hashSync(password.toString(), salt);
-    return hash;
+    return hash.slice(7);
 }
 
 function sendEmail(dest_email, code) {

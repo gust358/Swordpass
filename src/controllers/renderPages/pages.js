@@ -1,5 +1,14 @@
 const path = require("path");
 
+function homePage(req, res) {
+    const { userId, logged } = req.body;
+    if (userId > 0 && logged === true) {
+        res.redirect("/user");
+    } else {
+        res.sendFile(path.join(__dirname, "../../public", "home", "home.html"));
+    }
+}
+
 function registerPage(req, res) {
     const { userId, logged } = req.body;
     if (userId > 0 && logged === true) {
@@ -55,7 +64,7 @@ function IIfaPage(req, res) {
     if (userId > 0 && IIfaAuth === false) {
         res.sendFile(path.join(__dirname, "../../public", "IIfa", "IIfa.html"));
     } else {
-        res.redirect("/");
+        res.redirect("/user");
     }
 }
 
@@ -77,4 +86,4 @@ function changePassPage(req, res) {
 
 }
 
-module.exports = { changePassPage, IIfaPage, userPage, loginPage, registerPage };
+module.exports = { homePage, changePassPage, IIfaPage, userPage, loginPage, registerPage };

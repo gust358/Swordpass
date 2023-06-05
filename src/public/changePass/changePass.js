@@ -29,7 +29,7 @@ document.getElementById("logout").addEventListener("click", async () => {
         },
         body: JSON.stringify({ secret: 123 })
     }).then((res) => { return res.json() }).then((data) => {
-        window.location.href = "/"
+        window.location.href = "/login"
     })
 })
 

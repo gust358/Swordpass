@@ -34,7 +34,7 @@ async function sendIIfaToken(req, res) {
         sendEmail(user.email, code);
         res.json({ success: true, message: "Token successfully send" });
     } else {
-        res.json({ success: false, message: "Invalid user" });
+        res.redirect("/");
     }
 }
 

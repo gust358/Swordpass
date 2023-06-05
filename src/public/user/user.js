@@ -18,6 +18,8 @@ document.getElementById("delContainer").addEventListener("click", (e) => {
     const id = e.target.id;
     if (id === "delContainer") {
         document.getElementById("delContainer").style.display = "none";
+        document.getElementById("confirmPassword").value = "";
+        document.getElementById("confirmMessage").innerHTML = "";
     }
 })
 
