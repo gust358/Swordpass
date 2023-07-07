@@ -1,5 +1,5 @@
 const { insertUser, getUser } = require("../../database/database.js");
-const { generateHash } = require("../genericFunctions/functions");
+const { generateHash, generateId } = require("../genericFunctions/functions");
 
 async function register(req, res) {
 
@@ -17,7 +17,8 @@ async function register(req, res) {
     if (!dbUser1 && !dbUser2) {
         if (frontUser.email.includes("@") && frontUser.email.includes(".com")) {
             const hash = generateHash(frontUser.password);
-            await insertUser(frontUser.username.toLowerCase(), hash, frontUser.email.toLowerCase());
+            const id = await generateId();
+            await insertUser(id, frontUser.username.toLowerCase(), hash, frontUser.email.toLowerCase());
             res.send(JSON.stringify({ success: true })).status(200);
         } else {
             res.send(JSON.stringify({ type: "email", message: "email doesn't look like an email", success: false }))

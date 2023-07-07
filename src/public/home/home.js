@@ -58,22 +58,9 @@ function erase() {
 }
 
 function copy() {
-    var textArea = document.createElement("textarea");
-    textArea.value = password;
-    textArea.style.top = "0";
-    textArea.style.left = "0";
-    textArea.style.position = "fixed";
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-
-    try {
-        var successful = document.execCommand("copy", false, null);
-        var msg = successful ? 'successful' : 'unsuccessful';
-    } catch (err) {
-        console.error('Fallback: Oops, unable to copy', err);
-    }
-    document.body.removeChild(textArea);
+    navigator.clipboard.writeText(password).catch((err) => {
+        if (err) { console.log(err) }
+    });
 }
 
 

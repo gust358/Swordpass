@@ -35,6 +35,7 @@ async function addPassword(req, res) {
 
 async function removePassword(req, res) {
     const { service_id, userId, password } = req.body;
+    if (!userId) { return res.json({ message: "Invalid access", success: false }) };
     const dbUser = await getUser({ id: userId });
     if (bcrypt.compareSync(password.toString(), dbUser.password)) {
         await removeService(userId, service_id);

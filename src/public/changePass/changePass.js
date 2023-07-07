@@ -33,7 +33,7 @@ document.getElementById("logout").addEventListener("click", async () => {
     })
 })
 
-document.getElementById("changeBtn").addEventListener("click", () => {
+async function changePass() {
     const oldPassword = document.getElementById("oldPassword").value;
     const newPassword = document.getElementById("newPassword").value;
     const confirmNewPassword = document.getElementById("confirmNewPassword").value;
@@ -51,4 +51,17 @@ document.getElementById("changeBtn").addEventListener("click", () => {
             window.location.reload();
         }
     });
+
+}
+
+document.getElementById("changeBtn").addEventListener("click", async (e) => {
+    if (e.pointerId === 1) {
+        await changePass();
+    }
 });
+
+document.getElementById("box").addEventListener("keypress", async (e) => {
+    if (e.keyCode === 13) {
+        await changePass();
+    }
+})

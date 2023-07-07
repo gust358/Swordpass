@@ -57,16 +57,14 @@ async function deleteService(id) {
         },
         body: JSON.stringify({ service_id: id, password })
     }).then((res) => { return res.json() }).then((data) => {
-        console.log(data);
         if (data.success === true) {
             window.location.reload();
         } else {
+            if (data.message === "Invalid access") { window.location.reload() };
             document.getElementById("confirmMessage").innerHTML = data.message;
         }
     })
-
 }
-
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -105,23 +103,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".copyBtn").forEach((btn) => {
         btn.addEventListener("click", (e) => {
             const payload = e.target.id;
-            //     var textArea = document.createElement("textarea");
-            //     textArea.value = payload;
-            //     textArea.style.top = "0";
-            //     textArea.style.left = "0";
-            //     textArea.style.position = "fixed";
-            //     document.body.appendChild(textArea);
-            //     textArea.focus();
-            //     textArea.select();
-
-            //     try {
-            //         var successful = document.execCommand("copy", false, null);
-            //         var msg = successful ? 'successful' : 'unsuccessful';
-            //     } catch (err) {
-            //         console.error('Fallback: Oops, unable to copy', err);
-            //     }
-            //     document.body.removeChild(textArea);
-            // 
             navigator.clipboard.writeText(payload).then((err) => {
                 if (err) {
                     console.log(err);
@@ -135,8 +116,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             const id = e.target.id;
             document.getElementById("deleteName").innerHTML = `Delete ${it.name} ?`;
             document.getElementById("delContainer").style.display = "flex";
-            document.getElementById("confirmBtn").addEventListener("click", async () => {
-                await deleteService(id);
+            document.getElementById("confirmBtn").addEventListener("click", async (e) => {
+                if (e.pointerId === 1) {
+                    await deleteService(id);
+                }
+            })
+            document.getElementById("delContainer").addEventListener("keypress", async (e) => {
+                if (e.keyCode === 13) {
+                    await deleteService(id);
+                }
             })
         })
     })
@@ -149,7 +137,6 @@ document.getElementById("logout").addEventListener("click", async () => {
         },
         body: JSON.stringify({ secret: 123 })
     }).then((res) => { return res.json() }).then((data) => {
-        console.log(data);
         window.location.href = "/"
     })
 })
@@ -167,19 +154,13 @@ document.getElementById("addService").addEventListener("input", () => {
 
 document.getElementById("changePassword").addEventListener("click", () => {
     window.location.href = "/changePassword";
-})
+});
 document.getElementById("IIfa").addEventListener("click", () => {
     window.location.href = "/IIfa"
-})
+});
 
 document.getElementById("addContainer").addEventListener("keypress", async (e) => {
     if (e.keyCode === 13) {
         await addService()
     }
-})
-
-document.getElementById("delContainer").addEventListener("keypress", async (e) => {
-    if (e.keyCode === 13) {
-        await deleteService(e.target.id);
-    }
-})
+});

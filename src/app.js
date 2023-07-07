@@ -21,7 +21,7 @@ app.use(bodyParser.json(), cookieParser(), express.static("./public"));
 app.post("/login", login);
 app.post("/register", register);
 app.post("/addPassword", verifyToken, addPassword);
-app.post("/removePassword", verifyToken, removePassword)
+app.post("/removePassword", verifyToken, removePassword);
 app.post("/logout", verifyToken, logout);
 app.post("/changePassword", verifyToken, changePassword);
 app.post("/IIfa", verifyToken, IIfaAuth);

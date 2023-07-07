@@ -1,8 +1,21 @@
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const fs = require("fs").promises;
+const crypto = require("crypto");
 require("dotenv").config();
-const { dbData, createDb, get2faSecret } = require("../../database/database.js");
+const { getUser, dbData, createDb, get2faSecret } = require("../../database/database.js");
+
+async function generateId() {
+    let id;
+    while (true) {
+        id = crypto.randomUUID();
+        const user = await getUser({ id });
+        if (!user) {
+            break;
+        };
+    }
+    return id;
+}
 
 function generateHash(password) {
     const saltRound = Math.floor(Math.random() * 10);
@@ -139,4 +152,4 @@ async function verifyCode(userId, code) {
 
 }
 
-module.exports = { sendBackup, checkDb, sendEmail, generateHash, generatePassword, verifyCode };
+module.exports = { generateId, sendBackup, checkDb, sendEmail, generateHash, generatePassword, verifyCode };

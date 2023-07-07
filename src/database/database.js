@@ -20,18 +20,18 @@ async function createDb() {
         filename: "./database/database.db",
         driver: sqlite3.Database
     })
-    await db.exec("CREATE TABLE users (person_id INTEGER PRIMARY KEY,username TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL, IIfa INTEGER NOT NULL, secret TEXT NOT NULL)").catch((err) => { console.log(1) });
-    await db.exec("CREATE TABLE passwords (user_id INTEGER NOT NULL,service TEXT NOT NULL, service_password TEXT NOT NULL,service_id INTEGER PRIMARY KEY, FOREIGN KEY(user_id) REFERENCES users (person_id) )").catch((err) => { console.log(2) });
+    await db.exec("CREATE TABLE users (person_id TEXT NOT NULL,username TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL, IIfa INTEGER NOT NULL, secret TEXT NOT NULL)").catch((err) => { console.log(1) });
+    await db.exec("CREATE TABLE passwords (user_id TEXT NOT NULL,service TEXT NOT NULL, service_password TEXT NOT NULL,service_id INTEGER PRIMARY KEY, FOREIGN KEY(user_id) REFERENCES users (person_id) )").catch((err) => { console.log(2) });
     db.close()
     return;
 }
 
-async function insertUser(username, password, email) {
+async function insertUser(person_id, username, password, email) {
     const db = await open({
         filename: "./database/database.db",
         driver: sqlite3.Database
     })
-    await db.run("INSERT INTO users(username,password,email, IIfa,secret) VALUES (?,?,?,?,?)", username, password, email, 0, "111111").catch(err => { console.log(err) });
+    await db.run("INSERT INTO users(person_id, username,password,email, IIfa,secret) VALUES (?,?,?,?,?,?)", person_id, username, password, email, 0, "111111").catch(err => { console.log(err) });
 
     db.close();
     return;

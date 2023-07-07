@@ -2,7 +2,7 @@ const path = require("path");
 
 function homePage(req, res) {
     const { userId, logged } = req.body;
-    if (userId > 0 && logged === true) {
+    if (userId && logged === true) {
         res.redirect("/user");
     } else {
         res.sendFile(path.join(__dirname, "../../public", "home", "home.html"));
@@ -11,7 +11,7 @@ function homePage(req, res) {
 
 function registerPage(req, res) {
     const { userId, logged } = req.body;
-    if (userId > 0 && logged === true) {
+    if (userId && logged === true) {
         res.redirect("/user");
     } else {
         res.sendFile(path.join(__dirname, "../../public", "register", "register.html"));
@@ -21,21 +21,21 @@ function registerPage(req, res) {
 function loginPage(req, res) {
     const { userId, logged, IIfa, IIfaAuth } = req.body;
 
-    if (userId > 0 && logged === true && IIfa === 1 && IIfaAuth === true) {
+    if (userId && logged === true && IIfa === 1 && IIfaAuth === true) {
         res.redirect("/user");
     }
 
     if (!userId && !logged) {
         res.sendFile(path.join(__dirname, "../../public", "login", "login.html"));
     }
-    if (userId > 0 && IIfa === 1 && IIfaAuth === true) {
+    if (userId && IIfa === 1 && IIfaAuth === true) {
         res.redirect("/user");
     }
-    else if (userId > 0 && IIfa === 1 && IIfaAuth === false) {
+    else if (userId && IIfa === 1 && IIfaAuth === false) {
         res.redirect("/IIfa");
     }
 
-    if (userId > 0 && IIfa === 0 && IIfaAuth === false) {
+    if (userId && IIfa === 0 && IIfaAuth === false) {
         res.redirect("/user");
     }
 
@@ -46,14 +46,14 @@ function userPage(req, res) {
     if (!userId && !logged) {
         res.redirect("/");
     }
-    if (userId > 0 && IIfa === 1 && IIfaAuth === true) {
+    if (userId && IIfa === 1 && IIfaAuth === true) {
         res.sendFile(path.join(__dirname, "../../public", "user", "user.html"));
     }
-    else if (userId > 0 && IIfa === 1 && IIfaAuth === false) {
+    else if (userId && IIfa === 1 && IIfaAuth === false) {
         res.redirect("/IIfa");
     }
 
-    if (userId > 0 && IIfa === 0 && IIfaAuth === false) {
+    if (userId && IIfa === 0 && IIfaAuth === false) {
         res.sendFile(path.join(__dirname, "../../public", "user", "user.html"));
     }
 }
@@ -61,7 +61,7 @@ function userPage(req, res) {
 function IIfaPage(req, res) {
     const { userId, IIfaAuth } = req.body;
 
-    if (userId > 0 && IIfaAuth === false) {
+    if (userId && IIfaAuth === false) {
         res.sendFile(path.join(__dirname, "../../public", "IIfa", "IIfa.html"));
     } else {
         res.redirect("/user");
@@ -73,14 +73,14 @@ function changePassPage(req, res) {
     if (!userId && !logged) {
         res.redirect("/");
     }
-    if (userId > 0 && IIfa === 1 && IIfaAuth === true) {
+    if (userId && IIfa === 1 && IIfaAuth === true) {
         res.sendFile(path.join(__dirname, "../../public", "changePass", "changePass.html"));
     }
-    else if (userId > 0 && IIfa === 1 && IIfaAuth === false) {
+    else if (userId && IIfa === 1 && IIfaAuth === false) {
         res.redirect("/IIfa");
     }
 
-    if (userId > 0 && IIfa === 0 && IIfaAuth === false) {
+    if (userId && IIfa === 0 && IIfaAuth === false) {
         res.sendFile(path.join(__dirname, "../../public", "changePass", "changePass.html"));
     }
 
