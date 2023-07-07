@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const fs = require("fs").promises;
 require("dotenv").config();
-const { createDb, get2faSecret } = require("../../database/database.js");
+const { dbData, createDb, get2faSecret } = require("../../database/database.js");
 
 function generateHash(password) {
     const saltRound = Math.floor(Math.random() * 10);
@@ -45,6 +45,70 @@ function sendEmail(dest_email, code) {
 
 }
 
+async function createBackupFile() {
+    const dbCopy = await dbData();
+    for (let i = 0; i < dbCopy.users.length; i++) {
+        if (i === 0) {
+            if (dbCopy.users[ i ]) {
+                fs.writeFile("users.csv", `${Object.keys(dbCopy.users[ i ])} \n`);
+            }
+            if (dbCopy.passwords[ i ]) {
+                fs.writeFile("passwords.csv", `${Object.keys(dbCopy.passwords[ i ])} \n`)
+            }
+        }
+        fs.appendFile("users.csv", `${dbCopy.users[ i ].person_id},${dbCopy.users[ i ].username},${dbCopy.users[ i ].password},${dbCopy.users[ i ].email},${dbCopy.users[ i ].IIfa},${dbCopy.users[ i ].secret} \n`);
+        fs.appendFile("passwords.csv", `${dbCopy.passwords[ i ].user_id},${dbCopy.passwords[ i ].service},${dbCopy.passwords[ i ].service_password},${dbCopy.passwords[ i ].service_id} \n`)
+    }
+}
+
+function deleteBackupFile() {
+    fs.unlink("users.csv");
+    fs.unlink("passwords.csv");
+}
+
+async function sendBackup() {
+
+    await createBackupFile();
+    const currentDate = new Date();
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_KEY
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: process.env.EMAIL,
+        subject: `SwordPass-Backup:${currentDate}`,
+        attachments: [
+            {
+                filename: "users.csv",
+                path: "./users.csv"
+            },
+            {
+                filename: "passwords.csv",
+                path: "./passwords.csv"
+            },
+            {
+                filename: "database.db",
+                path: "./database/database.db"
+            }
+        ]
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+            deleteBackupFile()
+        }
+    });
+
+}
+
 async function checkDb() {
 
     const archives = await fs.readdir("./database");
@@ -75,4 +139,4 @@ async function verifyCode(userId, code) {
 
 }
 
-module.exports = { checkDb, sendEmail, generateHash, generatePassword, verifyCode };
+module.exports = { sendBackup, checkDb, sendEmail, generateHash, generatePassword, verifyCode };

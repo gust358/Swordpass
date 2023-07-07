@@ -28,6 +28,46 @@ document.getElementById("delContainer").addEventListener("click", (e) => {
 
 // _________________________________________basic front engine_________________________________________
 
+async function addService() {
+    const service = document.getElementById("addService").value;
+
+    await fetch("/addPassword", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ service })
+    }).then((res) => { return res.json() }).then((data) => {
+        if (data.success === false) {
+            document.getElementById("message").innerHTML = data.message;
+        } else {
+            window.location.reload();
+        }
+    })
+}
+
+
+async function deleteService(id) {
+    const password = document.getElementById("confirmPassword").value;
+    fetch("/removePassword", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ service_id: id, password })
+    }).then((res) => { return res.json() }).then((data) => {
+        console.log(data);
+        if (data.success === true) {
+            window.location.reload();
+        } else {
+            document.getElementById("confirmMessage").innerHTML = data.message;
+        }
+    })
+
+}
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     await fetch("/username", {
@@ -46,9 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             "Accept": "application/json, text/plain",
             "Content-Type": "application/json"
         }
-    }
-
-    ).then((res) => { return res.json() }).then((data) => {
+    }).then((res) => { return res.json() }).then((data) => {
         if (data.IIfa === 0) {
             document.getElementById("IIfa").style.display = "inline"
         }
@@ -67,49 +105,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".copyBtn").forEach((btn) => {
         btn.addEventListener("click", (e) => {
             const payload = e.target.id;
-            var textArea = document.createElement("textarea");
-            textArea.value = payload;
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+            //     var textArea = document.createElement("textarea");
+            //     textArea.value = payload;
+            //     textArea.style.top = "0";
+            //     textArea.style.left = "0";
+            //     textArea.style.position = "fixed";
+            //     document.body.appendChild(textArea);
+            //     textArea.focus();
+            //     textArea.select();
 
-            try {
-                var successful = document.execCommand("copy", false, null);
-                var msg = successful ? 'successful' : 'unsuccessful';
-            } catch (err) {
-                console.error('Fallback: Oops, unable to copy', err);
-            }
-            document.body.removeChild(textArea);
+            //     try {
+            //         var successful = document.execCommand("copy", false, null);
+            //         var msg = successful ? 'successful' : 'unsuccessful';
+            //     } catch (err) {
+            //         console.error('Fallback: Oops, unable to copy', err);
+            //     }
+            //     document.body.removeChild(textArea);
+            // 
+            navigator.clipboard.writeText(payload).then((err) => {
+                if (err) {
+                    console.log(err);
+                }
+            })
         })
     })
-
 
     document.querySelectorAll(".rmBtn").forEach((it) => {
         it.addEventListener("click", (e) => {
             const id = e.target.id;
             document.getElementById("deleteName").innerHTML = `Delete ${it.name} ?`;
             document.getElementById("delContainer").style.display = "flex";
-            document.getElementById("confirmBtn").addEventListener("click", () => {
-                const password = document.getElementById("confirmPassword").value;
-                fetch("/removePassword", {
-                    method: "POST",
-                    headers: {
-                        'Accept': 'application/json, text/plain',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ service_id: id, password })
-                }).then((res) => { return res.json() }).then((data) => {
-                    console.log(data);
-                    if (data.success === true) {
-                        window.location.reload();
-                    } else {
-                        document.getElementById("confirmMessage").innerHTML = data.message;
-                    }
-                })
-
+            document.getElementById("confirmBtn").addEventListener("click", async () => {
+                await deleteService(id);
             })
         })
     })
@@ -127,23 +154,11 @@ document.getElementById("logout").addEventListener("click", async () => {
     })
 })
 
+
 document.getElementById("add_btn").addEventListener("click", async () => {
 
-    const service = document.getElementById("addService").value;
+    await addService();
 
-    await fetch("/addPassword", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ service })
-    }).then((res) => { return res.json() }).then((data) => {
-        if (data.success === false) {
-            document.getElementById("message").innerHTML = data.message;
-        } else {
-            window.location.reload();
-        }
-    })
 })
 
 document.getElementById("addService").addEventListener("input", () => {
@@ -155,4 +170,16 @@ document.getElementById("changePassword").addEventListener("click", () => {
 })
 document.getElementById("IIfa").addEventListener("click", () => {
     window.location.href = "/IIfa"
+})
+
+document.getElementById("addContainer").addEventListener("keypress", async (e) => {
+    if (e.keyCode === 13) {
+        await addService()
+    }
+})
+
+document.getElementById("delContainer").addEventListener("keypress", async (e) => {
+    if (e.keyCode === 13) {
+        await deleteService(e.target.id);
+    }
 })

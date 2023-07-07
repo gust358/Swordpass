@@ -15,7 +15,7 @@ async function sendData(req, res) {
 async function addPassword(req, res) {
     const id = req.body.userId;
     const { service } = req.body;
-
+    if (!service) { return res.json({ message: "Insert service name", success: false }) };
     const array = await getUserPasswords(id);
     let have = false;
     array.forEach((it) => {
@@ -38,7 +38,7 @@ async function removePassword(req, res) {
     const dbUser = await getUser({ id: userId });
     if (bcrypt.compareSync(password.toString(), dbUser.password)) {
         await removeService(userId, service_id);
-        res.json({ message: "successfully removed", success: true });
+        res.json({ message: "Successfully removed", success: true });
     } else {
         res.json({ message: "Invalid Password", success: false })
     }

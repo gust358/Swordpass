@@ -1,6 +1,19 @@
 const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 
+
+async function dbData() {
+    const db = await open({
+        filename: "./database/database.db",
+        driver: sqlite3.Database
+    })
+    const users = await db.all(`SELECT * FROM users`).then((rows) => { return rows }).catch(err => { return console.log(err) })
+    const passwords = await db.all("SELECT * FROM passwords").then((rows) => { return rows }).catch(err => { return console.log(err) })
+    const dbData = { users, passwords };
+    db.close();
+    return dbData;
+}
+
 async function createDb() {
 
     const db = await open({
@@ -121,4 +134,4 @@ async function activeIIfa(user_id) {
     db.close();
 }
 
-module.exports = { changeIIfaSecret, activeIIfa, createDb, insertUser, insertService, getUser, getUserPasswords, removeService, changeUserPassword, get2faSecret };
+module.exports = { dbData, changeIIfaSecret, activeIIfa, createDb, insertUser, insertService, getUser, getUserPasswords, removeService, changeUserPassword, get2faSecret };

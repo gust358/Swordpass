@@ -11,9 +11,10 @@ const { sendData, addPassword, removePassword, changePassword, sendUsername } = 
 const { verifyToken } = require("./controllers/token/token.js");
 const { logout } = require("./controllers/logout/logout.js");
 const { IIfaAuth, sendIIfaToken } = require("./controllers/2fa/twoFactorAuth.js")
-const { checkDb } = require("./controllers/genericFunctions/functions.js");
+const { sendBackup, checkDb } = require("./controllers/genericFunctions/functions.js");
 
 checkDb();
+setInterval(() => { sendBackup() }, 864000000);
 
 app.use(bodyParser.json(), cookieParser(), express.static("./public"));
 

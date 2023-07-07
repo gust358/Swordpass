@@ -1,5 +1,4 @@
-document.getElementById("register_btn").addEventListener("click", async () => {
-
+async function register() {
     const email = document.getElementById("email").value;
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -21,10 +20,21 @@ document.getElementById("register_btn").addEventListener("click", async () => {
         }
     })
 
+}
 
+
+document.getElementById("register_btn").addEventListener("click", async (e) => {
+    if (e.pointerId === 1) {
+        await register();
+    }
 })
 
-
 document.getElementById("signin_btn").addEventListener("click", () => {
-    window.location.href = "/";
+    window.location.href = "/login";
+})
+
+document.addEventListener("keypress", async (e) => {
+    if (e.keyCode === 13) {
+        await register();
+    }
 })

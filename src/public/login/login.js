@@ -1,4 +1,4 @@
-document.getElementById("signin_btn").addEventListener("click", async () => {
+async function signin() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
     await fetch("/login", {
@@ -17,8 +17,18 @@ document.getElementById("signin_btn").addEventListener("click", async () => {
             document.getElementById("warning").innerHTML = data.message;
         }
     }).catch((err) => { console.log(err) });
+}
+
+document.getElementById("signin_btn").addEventListener("click", async () => {
+    await signin();
 });
 
 document.getElementById("register_btn").addEventListener("click", () => {
     window.location.href = "/register";
+})
+
+document.addEventListener("keypress", async (e) => {
+    if (e.keyCode === 13) {
+        await signin();
+    }
 })

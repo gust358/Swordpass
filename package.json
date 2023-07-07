@@ -8,6 +8,7 @@
     "jsonwebtoken": "^9.0.0",
     "node-2fa": "^2.0.3",
     "nodemailer": "^6.9.1",
+    "shelljs": "^0.8.5",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.1.4"
   }
