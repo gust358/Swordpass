@@ -9,6 +9,8 @@
     column-gap: 10px;
     border-bottom: 1px solid grey;
     margin-bottom: 30px;
+    box-sizing: border-box;
+    padding: 1rem;
 }
 
 .top_it {
