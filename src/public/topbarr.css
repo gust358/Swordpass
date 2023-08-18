@@ -2,7 +2,7 @@
 
 #topbarr {
     width: 100vw;
-    height: 130px;
+    height: 100px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     background-color: #ffffff;
@@ -80,7 +80,7 @@
     color: rgb(88, 88, 236);
     border: none;
     background-color: white;
-    font-size: 6rem;
+    font-size: 4rem;
 }
 
 #addBtnContainer:hover {
